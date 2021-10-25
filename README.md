@@ -24,7 +24,10 @@ Esta guía es para que instales la aplicación localmente.
 git clone https://github.com/DeibyDev/challenge_sofka
 
 ```
-
+# Importante
+* Si al momento de ejecutar el proyecto nos arroja un erro por no tener la carpeta [WEB-INF].
+* la ruta predeterminada seria : `\Descargas\challenge_sofka-main\web` dentro de la carpeta web creamos una carpeta  `WEB-INF`.
+* Ejecutamos nuevamente el proyecto
 ### Dependencias
 * Para compilar el proyecto localmente es necesario descargar [xampp](https://www.apachefriends.org/es/index.html).
 
