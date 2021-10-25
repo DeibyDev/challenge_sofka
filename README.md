@@ -25,7 +25,7 @@ git clone https://github.com/DeibyDev/challenge_sofka
 
 ```
 # Importante
-* Si al momento de ejecutar el proyecto nos arroja un erro por no tener la carpeta [WEB-INF].
+* Si al momento de ejecutar el proyecto nos arroja un error por no tener la carpeta [WEB-INF].
 * la ruta predeterminada seria : `\Descargas\challenge_sofka-main\web` dentro de la carpeta web creamos una carpeta  `WEB-INF`.
 * Ejecutamos nuevamente el proyecto
 ### Dependencias
