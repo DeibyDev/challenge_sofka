@@ -13,7 +13,7 @@ salir de juego puede retirarse antes de responder a la pregunta, si por el contr
 pierde entonces saldría del juego sin el acomulado que llevaría en ese momento.
 
 ## Informacion del desarrllo
-* Este aplicativo fue desarrollado en JavaServer Pages y con interfaz grafica usando CSS framework de Materialize.
+* Este aplicativo fue desarrollado en JavaServer Pages y con  una interfaz grafica usando  Materialize CSS framework.
 * Su base de datos esta construida en MYSQL.
 * Se desarrollo con un patron de arquitectura MVC.
 ## Guía de instalación
