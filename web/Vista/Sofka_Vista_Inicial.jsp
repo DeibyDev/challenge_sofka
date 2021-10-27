@@ -59,7 +59,7 @@
                         <div class="card  ">
                             <div class="card-content black-text">
                                 <span class="card-title" >Acumulado:
-                                    <input id="nombre" class="center black-text" style="font-family: 'Poppins',sans-serif;" disabled="true"name="nombre" type="text" value="$ 0.0 ">
+                                    <input id="premio" class="center black-text" style="font-family: 'Poppins',sans-serif;" disabled="true"name="premio" type="text" value="${acumulado}">
                                 </span>
 
                             </div>
@@ -74,10 +74,32 @@
                                 <span class="card-title center" >INFORMACIÓN </span>  
 
                                 <span class="card-title" >Categoria:  ${datos.categoria.getCate_descripcion()}</span>  
-                                <span class="card-title" >Difucultad : ${datos.preg_dificultad}</span>  
-                                <span class="card-title" >Premio : $ ${datos.ronda.getRond_premio()}</span>  
+
+                                <span class="card-title" >Difucultad : ${datos.preg_dificultad}</span>
+                                <a class="waves-effect waves-light btn-small pulse right blue darken-3 tooltipped btn modal-trigger" 
+                                   data-position="bottom" data-tooltip="Retirarse"  data-target="modal1"  >
+                                    <i class="material-icons ">pan_tool</i> </a>
+                                <span class="card-title" >Premio : $ ${datos.ronda.getRond_premio()}</span> 
+
 
                             </div>
+
+                        </div>
+
+                    </div>
+
+                    <div id="modal1" class="modal ">
+                        <div class="modal-content   ">
+                            <h4 class="center  ">¿ESTAS SEGURO DE RENDIRTE ?</h4>
+                           
+                            <h6 class="card-title center" style="font-family: 'Poppins',sans-serif;">${nombre} Actualmente estas en la ronda ${datos.ronda.getRond_descripcion()} con un acumulado de :
+                             <br>
+                                <h3 class="card-title center red-text darken-3" style="font-family: 'Poppins',sans-serif;" >$. ${acumulado}</h3> 
+                            </h6>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-close waves-effect waves-green btn-flat blue darken-1 center-align " id="renunciar">Aceptar</a>
+                            <a href="#!" class="modal-close waves-effect waves-green btn-flat red  center  ">Cancelar</a>
                         </div>
                     </div>
 
@@ -125,7 +147,7 @@
                 </div> 
             </div> 
 
-       
+         
 
 
         </div>   
@@ -141,27 +163,33 @@
         $("#boton").click(function () {
             let respuesta = $('input:radio[name=opc]:checked').val();
             let nombre = document.getElementById("nombre").value;
+            let premio = document.getElementById("premio").value;
             console.log(nombre);
+            console.log(premio);
             window.location.href = 'ctr_challenge_sofka?accion=Ronda_2&respuesta=' + respuesta + '&opcion=' +${datos.preg_id} + '&nombre=' + nombre + '&acumulado=' +${datos.ronda.getRond_premio()};
-
+            + '&premio=' + premio;
+            return false;
 
         });
     });
+    
+    $(document).ready(function ()
+    {
+        $("#renunciar").click(function () {
+             let nombre = document.getElementById("nombre").value;
+             let premio = document.getElementById("premio").value;
+             console.log(premio);
+             window.location.href ='ctr_challenge_sofka?accion=Rendirse&nombre='+ nombre;
+        });
+    });
+ 
+
+    // Or with jQuery
 
     window.history.forward();
     function sinVueltaAtras() {
         window.history.forward();
     }
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.modal');
-        var instances = M.Modal.init(elems, options);
-    });
-
-    // Or with jQuery
-
-    $(document).ready(function () {
-        $('.modal').modal();
-    });
 
 
 </script>
