@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index.jsp
-    Created on : 23/10/2021, 03:58:36 PM
-    Author     : deibyasierra
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -27,147 +21,68 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     </head>
-    <body onload="sinVueltaAtras();" onpageshow="if (event.persisted) sinVueltaAtras();" onunload="">
-
-
-
+    <body >
         <div class="container" id="prueba">
-
-
-
             <div class="row">
                 <div class="col s12 m12">
                     <div class="card  blue darken-3">
                         <div class="card-content white-text ">
-                            <span class="card-title center " style="font-family: 'Poppins',sans-serif;" >FELICITACIONES GANASTE !!</span>
-
+                            <span class="card-title center " style="font-family: 'Poppins',sans-serif;" >PREMIOS DISPONIBLES</span>
                         </div>
                     </div>    
                 </div> 
+                <div class="col s12 m4">
+                    <div class="card  blue darken-1">
+                        <div class="card-image z-depth-5 hoverable">
+                            <img src="images/premio.gif">
+                        </div>
+                    </div>
+                </div> 
+                <div class="col s12 m8">
+                    <div class="card  ">
+                        <div class="card-content white-text z-depth-5 hoverable ">
+                            <table class="highlight">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre del Jugador</th>
+                                        <th>Premio</th>
+                                        <th>Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="jug" items="${jugador}" varStatus="count">    
+                                        <tr>
+                                            <td>${count.count}</td>
+                                            <td>${jug.getAlias()}</td>
+                                            <td>${jug.getAcumulado()}</td>
+                                            <td>${jug.fecha_registro}</td>
 
-                <div class="row">
-                      <div class="col s12 m6">
-                        <div class="card  blue darken-1">
-                            <div class="card-image z-depth-5 hoverable">
-                                <img src="images/ganador.gif">
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
 
-                            </div>
                         </div>
-                    </div>
-                    <div class="col s12 m6">
-                        <div class="card  ">
-                            <div class="card-content black-text">
-                                <span class="card-title" >Nombre del Jugador
-                                    <input id="nombre" class="center black-text" style="font-family: 'Poppins',sans-serif;" disabled="true"name="nombre" type="text" value="${nombre}">
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                 
-                    <div class="col s12 m3">
-                        <div class="card  ">
-                            <div class="card-content black-text">
-                                <span class="card-title" >Acumulado:
-                                    <input id="premio" class="center black-text" style="font-family: 'Poppins',sans-serif;" disabled="true"name="premio" type="text" value="${acumulado}">
-                                </span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s12 m3">
-                        <div class="card  ">
-                            <div class="card-content black-text">
-                                <span class="card-title " >Premio Mayor
-                                    <input id="premio" class="center black-text" style="font-family: 'Poppins',sans-serif;" disabled="true"name="premio" type="text" value="$1'000.000">
-                                </span>
-
-                            </div>
-                        </div>
-                    </div>
-                                   <div class="col s12 m6">
-                        <div class="card  ">
-                            <div class="card-content black-text">
-                            
-                                     <h3 class="card-title center red-text darken-3 pulse" style="font-family: 'Poppins',sans-serif;" >$. ${total}</h3> 
-                                   
-                               
-                            </div>
-                        </div>
-                    </div>
+                    </div>    
                 </div>
 
-         
-            </div> 
 
-            <div class="fixed-action-btn">
-                <a class="btn-floating btn-large red">
-                    <i class="large material-icons">mode_edit</i>
-                </a>
-                <ul>
-                     <li><a class="btn-floating yellow darken-1 tooltipped btn modal-trigger" data-position="bottom" data-tooltip="Premio" href="ctr_challenge_sofka?accion=Jugar&opcion=premio" ><i class="material-icons">attach_money</i></a></li>
-                        <li><a class="btn-floating red darken-1 tooltipped btn modal-trigger" data-position="bottom" data-tooltip="Historico" href="ctr_challenge_sofka?accion=Jugar&opcion=listar" ><i class="material-icons">local_convenience_store</i></a></li>
-                       
-
-                </ul>
-            </div>
-
-
-        </div>   
-
-    </div>
-</div>
-
-
-<script>
-    M.AutoInit();
-    $(document).ready(function ()
-    {
-        $("#boton").click(function () {
-            let respuesta = $('input:radio[name=opc]:checked').val();
-           
-            let nombre = document.getElementById("nombre").value;
-            let premio = document.getElementById("premio").value;
-            console.log(nombre);
-            console.log(premio);
-            
-            window.location.href = 'ctr_challenge_sofka?accion=Ronda_6&respuesta=' + respuesta + '&opcion=' +${datos.preg_id} + '&nombre=' + nombre + '&acumulado=' +${datos.ronda.getRond_premio()}
-            + '&premio=' + premio;
-            return false;
-
-        });
-    });
-    $(document).ready(function ()
-    {
-        $("#renunciar").click(function () {
-             let nombre = document.getElementById("nombre").value;
-            let premio = document.getElementById("premio").value;
-            console.log(nombre);
-            console.log(premio);
-            window.location.href ='ctr_challenge_sofka?accion=Rendirse&nombre=' + nombre + '&acumulado='+premio;
-            return false;
-
-        });
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.modal');
-        var instances = M.Modal.init(elems, options);
-    });
-
-    // Or with jQuery
-
-    $(document).ready(function () {
-        $('.modal').modal();
-    });
-
-    window.history.forward();
-    function sinVueltaAtras() {
-        window.history.forward();
-    }
-
-
-</script>
+                <div class="input-field col s12 center">
+                    <a class="btn-floating btn-large blue darken-3 pulse blue-text tooltipped "data-position="bottom" data-tooltip="Jugar" id="jugar" name="jugar" href="http://localhost:8080/challenge-sofka/inicio.jsp">
+                        <i class="material-icons">videogame_asset</i>
+                    </a>  
+                </div>
+            </div>   
+        </div>
+        <script>
+            M.AutoInit();
 
 
 
-</body>
+        </script>
+
+
+
+    </body>
 </html>
