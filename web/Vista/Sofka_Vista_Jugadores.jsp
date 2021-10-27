@@ -27,7 +27,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     </head>
-    <body onload="sinVueltaAtras();" onpageshow="if (event.persisted) sinVueltaAtras();" onunload="">
+    <body >
         <div class="container" id="prueba">
             <div class="row">
                 <div class="col s12 m12">
@@ -47,7 +47,7 @@
                 <div class="col s12 m8">
                     <div class="card  ">
                         <div class="card-content white-text z-depth-5 hoverable ">
-                            <table>
+                            <table class="highlight">
                                 <thead>
                                     <tr>
                                         <th>#</th>
