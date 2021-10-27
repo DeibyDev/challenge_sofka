@@ -1,8 +1,3 @@
-<%-- 
-    Document   : index.jsp
-    Created on : 23/10/2021, 03:58:36 PM
-    Author     : deibyasierra
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -103,11 +98,7 @@
         });
     });
 
-    window.history.forward();
-    function sinVueltaAtras() {
-        window.history.forward();
-    }
-
+  
 
 </script>
 
