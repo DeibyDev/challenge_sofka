@@ -189,6 +189,8 @@ public class ctr_challenge_sofka extends HttpServlet {
               //INSERTAR JUGADOR
                 JugadorVO jugador = new JugadorVO(t,timestamp,nombre);
                 guardar.Guardar_Jugador(jugador);
+                i=1;
+                t=0;
                 this.getServletConfig().getServletContext().getRequestDispatcher("/inicio.jsp").forward(request, response);           
         } catch (Exception e) {
             System.out.println("Error" + e.getMessage());       
