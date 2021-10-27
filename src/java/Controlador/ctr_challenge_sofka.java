@@ -39,32 +39,22 @@ public class ctr_challenge_sofka extends HttpServlet {
                         Jugar(request, response,request.getParameter("nombre"),request.getParameter("opcion"));
                         break;
                    case "Rendirse":
-                        Rendirse(request, response,request.getParameter("nombre"),request.getParameter("acumulado"));
+                        Rendirse(request, response,request.getParameter("nombre"));
                         break;
                     case "Ronda_2":
                         Ronda_2(request, response, request.getParameter("respuesta"), request.getParameter("opcion"), request.getParameter("nombre"),request.getParameter("acumulado"));
                         break;
-
-                    case "Ronda_3":
-                        Ronda_3(request, response, request.getParameter("respuesta"), request.getParameter("opcion"), request.getParameter("nombre"),request.getParameter("acumulado"),request.getParameter("premio"));
-                        break;
-                    case "Ronda_4":
-                        Ronda_4(request, response, request.getParameter("respuesta"), request.getParameter("opcion"), request.getParameter("nombre"),request.getParameter("acumulado"),request.getParameter("premio"));
-                        break;
-                    case "Ronda_5":
-                        Ronda_5(request, response, request.getParameter("respuesta"), request.getParameter("opcion"), request.getParameter("nombre"),request.getParameter("acumulado"),request.getParameter("premio"));
-                        break;
-
                     default:
-                        response.sendRedirect("identificar.jsp");
+                        response.sendRedirect("inicio.jsp");
 
                 }
             } else {
-                response.sendRedirect("identificar.jsp");
+                response.sendRedirect("inicio.jsp");
             }
         } catch (Exception e) {
             try {
-                this.getServletConfig().getServletContext().getRequestDispatcher("/mensaje.jsp").forward(request, response);
+                System.out.println("algo pasa : " +e.getMessage());
+                this.getServletConfig().getServletContext().getRequestDispatcher("/inicio.jsp").forward(request, response);
 
             } catch (Exception ex) {
                 System.out.println("Error" + e.getMessage());
@@ -113,8 +103,10 @@ public class ctr_challenge_sofka extends HttpServlet {
     }// </editor-fold>
  Timestamp timestamp = new Timestamp(System.currentTimeMillis());
  JugadorDAO guardar = new JugadorDAO();
+    int i = 1;
+    double t =0;
     private void Jugar(HttpServletRequest request, HttpServletResponse response,String nombre,String opcion) {
-   
+
         try {
             
             if (opcion.equals("premio")) {
@@ -122,7 +114,8 @@ public class ctr_challenge_sofka extends HttpServlet {
                  request.setAttribute("premios", premios);
                  this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Premios.jsp").forward(request, response);
             }if (opcion.equals("inicio")) {
-                 PreguntasVO datos = new PreguntasDAO().Preguntas(1);
+                 PreguntasVO datos = new PreguntasDAO().Preguntas(i);
+                  System.err.println("i : " +i);
                  request.setAttribute("datos", datos);
                  request.setAttribute("nombre", nombre);
           
@@ -139,6 +132,7 @@ public class ctr_challenge_sofka extends HttpServlet {
             request.setAttribute("x", "error" + e.getMessage());
 
         } finally {
+            i=1;
             request.removeAttribute("datos");
             request.removeAttribute("jugador");
             request.removeAttribute("premios");
@@ -147,137 +141,66 @@ public class ctr_challenge_sofka extends HttpServlet {
 
     private void Ronda_2(HttpServletRequest request, HttpServletResponse response, String respuesta, String opcion, String nombre,String acumulado) {
         int resp = Integer.parseInt(opcion);
+        int acum = Integer.parseInt(acumulado);
+        
+        t=t+acum;
+        double premioFinal = 1000000+t;
+        System.out.println("acumulado" + t);
         
             try {
         request.setAttribute("nombre", nombre);
-        request.setAttribute("acumulado", acumulado);
-            RespuestasVO validar = new RespuestasDAO().Respuesta(resp);
-            if (respuesta.equals(validar.getResp_correcta())) {
-                PreguntasVO datos = new PreguntasDAO().Preguntas(2);
-                request.setAttribute("datos", datos);
-                this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Ronda.jsp").forward(request, response);
-
-            } else {
-              //INSERTAR JUGADOR
-                JugadorVO jugador = new JugadorVO(0.0,timestamp,nombre);
-                guardar.Guardar_Jugador(jugador);
-                this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Finaliza.jsp").forward(request, response);
-            }
-
-        } catch (Exception e) {
-        }
-    }
-
-    private void Ronda_3(HttpServletRequest request, HttpServletResponse response, String respuesta, String opcion, String nombre ,String acumulado,String premio) {
-        int resp = Integer.parseInt(opcion);
-        int acum = Integer.parseInt(acumulado);
-        int acu = Integer.parseInt(premio);
-   
-        try {
-                 
-            request.setAttribute("nombre", nombre);
-            request.setAttribute("acumulado", acu+acum);
-            RespuestasVO validar = new RespuestasDAO().Respuesta(resp);
-            if (respuesta.equals(validar.getResp_correcta())) {
-                PreguntasVO datos = new PreguntasDAO().Preguntas(3);
-                request.setAttribute("datos", datos);
-                this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Ronda_3.jsp").forward(request, response);
-
-            } else {
-                //INSERTAR JUGADOR
-                JugadorVO jugador = new JugadorVO(0.0,timestamp,nombre);
-                guardar.Guardar_Jugador(jugador);
-                this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Finaliza.jsp").forward(request, response);
-            }
-
-        } catch (Exception e) {
-            request.setAttribute("x", "error " + e.getMessage());
-
-        } finally {
-            request.removeAttribute("datos");
-
-        }
-    }
-
-    private void Ronda_4(HttpServletRequest request, HttpServletResponse response, String respuesta, String opcion, String nombre ,String acumulado,String premio) {
-          int resp = Integer.parseInt(opcion);
-        int acum = Integer.parseInt(acumulado);
-        int acu = Integer.parseInt(premio);
-        try {
-            request.setAttribute("nombre", nombre);
-            request.setAttribute("acumulado", acu+acum);
-            RespuestasVO validar = new RespuestasDAO().Respuesta(resp);
-            if (respuesta.equals(validar.getResp_correcta())) {
-                PreguntasVO datos = new PreguntasDAO().Preguntas(4);
-                request.setAttribute("datos", datos);
-                this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Ronda_4.jsp").forward(request, response);
-
-            } else {
-                //INSERTAR JUGADOR
-                JugadorVO jugador = new JugadorVO(0.0,timestamp,nombre);
-                guardar.Guardar_Jugador(jugador);
-                this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Finaliza.jsp").forward(request, response);
-            }
-
-        } catch (Exception e) {
-            request.setAttribute("x","Error"+ e.getMessage());
-
-        } finally {
-            request.removeAttribute("datos");
-        }
-    }
-
-    private void Ronda_5(HttpServletRequest request, HttpServletResponse response, String respuesta, String opcion, String nombre ,String acumulado ,String premio) {
-             int resp = Integer.parseInt(opcion);
-        int acum = Integer.parseInt(acumulado);
-        int acu = Integer.parseInt(premio);
-        int premioFinal=1000000;
+        request.setAttribute("acumulado", t);
         
-        try {
-             request.setAttribute("nombre", nombre);
-            request.setAttribute("acumulado", acu+acum);
-            request.setAttribute("total", acu+acum+premioFinal);
             RespuestasVO validar = new RespuestasDAO().Respuesta(resp);
             if (respuesta.equals(validar.getResp_correcta())) {
-                PreguntasVO datos = new PreguntasDAO().Preguntas(5);
-                request.setAttribute("datos", datos);
-                JugadorVO jugador = new JugadorVO(acu+acum+premioFinal,timestamp,nombre);
+                if(i==5){
+                request.setAttribute("total", premioFinal);
+                JugadorVO jugador = new JugadorVO(premioFinal,timestamp,nombre);
                 guardar.Guardar_Jugador(jugador);
+                request.removeAttribute("total");
+                request.removeAttribute("acumulado");
+                request.removeAttribute("nombre");
+               
                 this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Ganador.jsp").forward(request, response);
-
+                  
+                }else{
+                
+                i++;
+                this.Jugar(request, response, nombre, "inicio");            
+                }
             } else {
-                //INSERTAR JUGADOR
+              //INSERTAR JUGADOR
+               
                 JugadorVO jugador = new JugadorVO(0.0,timestamp,nombre);
                 guardar.Guardar_Jugador(jugador);
+                
                 this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Finaliza.jsp").forward(request, response);
-              
             }
 
         } catch (Exception e) {
-            request.setAttribute("x", "Error" + e.getMessage());
-
-        } finally {
-            request.removeAttribute("datos");
-        }
-    }
-
-    private void Rendirse(HttpServletRequest request, HttpServletResponse response, String nombre, String acumulado) {
-         int acum = Integer.parseInt(acumulado);
-         
-        try {
-             request.setAttribute("nombre", nombre);
-             
-              //INSERTAR JUGADOR
-                JugadorVO jugador = new JugadorVO(acum,timestamp,nombre);
-                guardar.Guardar_Jugador(jugador);
-                this.getServletConfig().getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-            
-        } catch (Exception e) {
-            
-            
+                System.out.println("Error" + e.getMessage());
         }finally{
-        
-        
+            request.removeAttribute("total");
+            request.removeAttribute("acumulado");
+            request.removeAttribute("nombre");
+            }
+    }
+    private void Rendirse(HttpServletRequest request, HttpServletResponse response, String nombre) {
+         
+           
+        try {
+              
+             request.setAttribute("nombre", nombre); 
+            
+       
+              //INSERTAR JUGADOR
+                JugadorVO jugador = new JugadorVO(t,timestamp,nombre);
+                guardar.Guardar_Jugador(jugador);
+                this.getServletConfig().getServletContext().getRequestDispatcher("/inicio.jsp").forward(request, response);           
+        } catch (Exception e) {
+            System.out.println("Error a" + e.getMessage());       
+        }finally{      
+     
         
         }
     }
