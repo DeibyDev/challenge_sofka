@@ -104,9 +104,9 @@
                     <i class="large material-icons">mode_edit</i>
                 </a>
                 <ul>
-                    <li><a class="btn-floating red btn tooltipped" data-position="bottom" data-tooltip="Record"><i class="material-icons" >local_convenience_store</i></a></li>
-                    <li><a class="btn-floating yellow darken-1 tooltipped" data-position="bottom" data-tooltip="Premios"><i class="material-icons">attach_money</i></a></li>
-                    <li><a class="btn-floating green darken-1 tooltipped" data-position="bottom" data-tooltip="Jugar"><i class="material-icons">videogame_asset</i></a></li>
+                     <li><a class="btn-floating yellow darken-1 tooltipped btn modal-trigger" data-position="bottom" data-tooltip="Premio" href="ctr_challenge_sofka?accion=Jugar&opcion=premio" ><i class="material-icons">attach_money</i></a></li>
+                        <li><a class="btn-floating red darken-1 tooltipped btn modal-trigger" data-position="bottom" data-tooltip="Historico" href="ctr_challenge_sofka?accion=Jugar&opcion=listar" ><i class="material-icons">local_convenience_store</i></a></li>
+                       
 
                 </ul>
             </div>
