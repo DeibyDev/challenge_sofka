@@ -38,8 +38,8 @@ public class ctr_challenge_sofka extends HttpServlet {
                     case "Jugar":
                         Jugar(request, response,request.getParameter("nombre"),request.getParameter("opcion"));
                         break;
-                   case "otro":
-                        Rendirse(request, response,request.getParameter("nombre"),request.getParameter("acumulado"));
+                   case "Rendirse":
+                        Rendirse(request, response,request.getParameter("nombre"));
                         break;
                     case "Ronda_2":
                         Ronda_2(request, response, request.getParameter("respuesta"), request.getParameter("opcion"), request.getParameter("nombre"),request.getParameter("acumulado"));
@@ -115,7 +115,6 @@ public class ctr_challenge_sofka extends HttpServlet {
                  this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Premios.jsp").forward(request, response);
             }if (opcion.equals("inicio")) {
                  PreguntasVO datos = new PreguntasDAO().Preguntas(i);
-                  System.err.println("i : " +i);
                  request.setAttribute("datos", datos);
                  request.setAttribute("nombre", nombre);
           
@@ -183,16 +182,13 @@ public class ctr_challenge_sofka extends HttpServlet {
             request.removeAttribute("nombre");
             }
     }
-    private void Rendirse(HttpServletRequest request, HttpServletResponse response, String nombre, String acumulado) {
-         int acum = Integer.parseInt(acumulado);      
+    private void Rendirse(HttpServletRequest request, HttpServletResponse response, String nombre) {          
         try {
-            System.out.println("Nombre : " + nombre);
-            System.out.println("Nombre : " + acumulado);
              request.setAttribute("nombre", nombre); 
               //INSERTAR JUGADOR
                 JugadorVO jugador = new JugadorVO(t,timestamp,nombre);
                 guardar.Guardar_Jugador(jugador);
-                this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Finaliza.jsp").forward(request, response);           
+                this.getServletConfig().getServletContext().getRequestDispatcher("/inicio.jsp").forward(request, response);           
         } catch (Exception e) {
             System.out.println("Error" + e.getMessage());       
         }finally{      
@@ -203,3 +199,4 @@ public class ctr_challenge_sofka extends HttpServlet {
 
 
 }
+
