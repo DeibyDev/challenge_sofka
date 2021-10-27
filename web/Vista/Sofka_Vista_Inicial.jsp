@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index.jsp
-    Created on : 23/10/2021, 03:58:36 PM
-    Author     : deibyasierra
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
