@@ -156,8 +156,8 @@ public class ctr_challenge_sofka extends HttpServlet {
                 request.setAttribute("total", premioFinal);
                 JugadorVO jugador = new JugadorVO(premioFinal,timestamp,nombre);
                 guardar.Guardar_Jugador(jugador);
-              
-               i=1;
+                i=1;
+                t=0;
                 this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Ganador.jsp").forward(request, response);
                   
                 }else{
@@ -171,6 +171,7 @@ public class ctr_challenge_sofka extends HttpServlet {
                 JugadorVO jugador = new JugadorVO(0.0,timestamp,nombre);
                 guardar.Guardar_Jugador(jugador);
                  i=1;
+                 t=0;
                 this.getServletConfig().getServletContext().getRequestDispatcher("/Vista/Sofka_Vista_Finaliza.jsp").forward(request, response);
             }
 
